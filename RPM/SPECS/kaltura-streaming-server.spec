@@ -1,7 +1,6 @@
 %define prefix /opt/kaltura
 %define kaltura_user kaltura
 %define kaltura_rootdir %{_topdir}/../
-%define postinst_dir %{_topdir}/scripts/postinst
 %define ecdn_kss_dir /home/igors/gitRoot/eCDN/KSS/release
 %define target_dir %{prefix}/app/configurations/ecdn
 %define __ln ln
@@ -13,8 +12,6 @@ Summary:       Kaltura Open Source Video Platform - Streaming Server
 Group:          Server/Platform 
 License:        AGPLv3+
 URL:            https://github.com/kaltura/eCDN
-#Source1: %{postinst_dir}/%{name}-config.sh
-#Source2: %{postinst_dir}/%{name}-config.sh
 
 BuildArch: 	noarch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
@@ -45,9 +42,7 @@ This package configures the Kaltura Streaming Server component.
 
 mkdir -p $RPM_BUILD_ROOT/%{target_dir}
 
-mkdir -p $RPM_BUILD_ROOT/%{prefix}/bin
-%{__install}  %{postinst_dir}/%{name}-config.sh   $RPM_BUILD_ROOT%{prefix}/bin/
-%{__install}  %{postinst_dir}/%{name}-configure-firewall.sh   $RPM_BUILD_ROOT%{prefix}/bin/
+
 
 . %{ecdn_kss_dir}/properties.ini 
 
@@ -66,6 +61,10 @@ mkdir -p $RPM_BUILD_ROOT%{prefix}/app/configurations/monit/monit.avail/
 %{__install}  %{ecdn_kss_dir}/configure-vhost.xsl $RPM_BUILD_ROOT/%{target_dir}/
 %{__install}  %{ecdn_kss_dir}/wowsase.template.rc $RPM_BUILD_ROOT/%{target_dir}/
 %{__install}  %{ecdn_kss_dir}/wowsasemanager.template.rc $RPM_BUILD_ROOT/%{target_dir}/
+mkdir -p $RPM_BUILD_ROOT/%{prefix}/bin
+%{__install}  %{ecdn_kss_dir}/scripts/%{name}-config.sh   $RPM_BUILD_ROOT%{prefix}/bin/
+%{__install}  %{ecdn_kss_dir}/scripts/%{name}-configure-firewall.sh   $RPM_BUILD_ROOT%{prefix}/bin/
+
 
 touch $RPM_BUILD_ROOT%{prefix}/app/configurations/monit/monit.avail/wowsase.rc
 touch $RPM_BUILD_ROOT%{prefix}/app/configurations/monit/monit.avail/wowsasemanager.rc
