@@ -72,8 +72,6 @@ To finalize the setup.
 #####################################################################################################################################
 "
 
-chmod +x %{prefix}/bin/kss_configure_firewall.sh
-
 %changelog
 * Mon Mar 9 2015 Igor Shevach <igor.shevach@kaltura.com> -  PLAT-2494
 	 Initial release.
